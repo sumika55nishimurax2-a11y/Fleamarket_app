@@ -1,0 +1,49 @@
+/* ログイン画面・会員登録画面のスタイル */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+}
+
+.auth-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-input-label {
+    display: flex;
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.auth-input-field {
+    display: flex;
+    width: 440px;
+    height: 40px;
+
+}
+
+
+/* ログインボタン */
+.auth-button {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border: none;
+    width: 440px;
+    height: 40px;
+    border-radius: 4px;
+    font-size: 20px;
+
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* 会員登録リンク */
+.auth-link {
+    text-decoration: none;
+    color: #0073CC;
+    font-size: 15px;
+}

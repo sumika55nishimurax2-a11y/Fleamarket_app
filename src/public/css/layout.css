@@ -1,0 +1,55 @@
+/* 全ページ共通ヘッダーレイアウト */
+.toppage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: 80px;
+    background: #000000;}
+
+.toppage-header-icon{
+    flex: 0 0 auto;
+    background: #000000;
+}
+
+.toppage-header-search{
+    flex: 1 1 300px;
+    max-width: 563px;
+    margin: 0 1rem;
+    color: #000;
+}
+
+.input-text {
+    color: #000000;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.toppage-header-nav{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.toppage-header-logout,
+.toppage-header-login,
+.toppage-header-mypage{
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    }
+
+.toppage-header-cart{
+    display: flex;
+    color: #000000;
+    font-size: 1.2rem;
+    align-items: center;
+    padding: 0 1rem;
+    height: 100%;
+    border-radius: 4px;
+    background: #FFFFFF;
+    text-decoration: none;
+    }

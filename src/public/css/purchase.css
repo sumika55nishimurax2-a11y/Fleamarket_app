@@ -1,0 +1,166 @@
+/* 購入画面のスタイル */
+.purchase-form {
+    display: flex;
+}
+
+
+
+/* 左側コンテンツ */
+.purchase-container {
+    display: flex;
+    flex-direction: column;
+    width:   700px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+/* 商品画像グループ */
+.purchase-item {
+    display: flex;
+    align-items: middle;
+    height: 250px;
+}
+
+.item-details {
+    display: flex;
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+}
+
+.image {
+    display: flex;
+    width: 150px;
+    height: 150px;
+    background-color: #D9D9D9;
+    margin-top: 40px;
+    margin-right: 2rem;
+}
+
+/* 支払い方法・配送先共通 */
+.title {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+
+    margin-left: 10px;
+}
+
+
+/* 支払い方法グループ */
+.purchase-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+
+    border-top: #000 solid 1px;
+    padding-bottom: 2rem;
+}
+
+.payment-method-label {
+    display: flex;
+    width: 200px;
+    margin-left: 50px;
+    font-weight: bold;
+    color: #5F5F5F;
+}
+
+/* 配送先グループ */
+.purchase-address {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+
+    border-top: #000 solid 1px;
+    padding-bottom: 2rem;
+    border-bottom: #000 solid 1px;
+}
+
+.address-header {
+    display: flex;
+    align-items: center;
+}
+
+.address-link {
+    text-decoration: none;
+    color: #0073CC;
+    font-size: 20px;
+    margin-left: 440px;
+}
+
+
+.address-details {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000;
+    margin-left: 50px;
+}
+
+
+
+/* 右側コンテンツ */
+.purchase-confirmation {
+    display: flex;
+    flex-direction: column;
+    width:  500px;
+    padding: 2rem;
+    margin-top: 20px;
+}
+
+/* 入力反映スペース */
+/* 商品情報反映 */
+.price-reflection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 440px;
+
+    border-color: #000;
+    border-style: solid;
+    margin-bottom: 1rem;
+
+    font-size: 20px;
+    color: #000;
+}
+
+
+
+/* 支払い方法反映 */
+.payment-method-reflection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 440px;
+
+    border-color: #000;
+    border-style: solid;
+    margin-bottom: 1rem;
+
+    font-size: 20px;
+    color: #000;
+}
+
+.purchase-confirmation-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 220px;
+}
+
+
+
+
+/* 購入するボタン */
+.purchase-button {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border: none;
+    width: 440px;
+    height: 40px;
+    border-radius: 4px;
+    font-size: 20px;
+}
