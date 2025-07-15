@@ -9,6 +9,13 @@ use App\Models\User;
 
 class Order extends Model
 {
+    protected $fillable = [
+        'buyer_id',
+        'item_id',
+        'shipping_address',
+        'payment_method_id',
+    ];
+
     public function item()
     {
         return $this->belongsTo(Item::class); // 購入した商品

@@ -16,7 +16,10 @@
         <a href="/">
             <div class="toppage-header-icon"><x-logo class="w-10 h-10 text-blue-500" /></div>
         </a>
-        <div class="toppage-header-search"><input type="text" class="input-text" placeholder="なにをお探しですか？"></div>
+        <form method="GET" action="{{ route('home') }}" class="toppage-header-search">
+            <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
+            <input type="text" name="keyword" class="input-text" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+        </form>
         <div class="toppage-header-nav">
             <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                 @csrf
@@ -48,6 +51,9 @@
                 <div class="product-card">
                     <div class="product-image">
                         <img src="{{ asset('storage/images/' . $item->image_path) }}" alt="{{ $item->name }}" class="product-image">
+                        @if ($product->is_sold)
+                        <div class="sold-label">SOLD</div>
+                        @endif
                     </div>
                     <div class="product-name">{{ $item->name }}</div>
                 </div>

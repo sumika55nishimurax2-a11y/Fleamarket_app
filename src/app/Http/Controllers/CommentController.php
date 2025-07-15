@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -13,19 +12,17 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // バリデーション
         $validated = $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'content' => 'required|string|max:1000',
+            'comment' => 'required|string|max:1000',
+            'item_id' => 'required|exists:items,id',
         ]);
 
-        // 保存処理
         Comment::create([
-            'user_id' => Auth::id(),
-            'product_id' => $validated['product_id'],
-            'content' => $validated['content'],
+            'comment' => $validated['comment'],
+            'user_id' => auth()->id(),
+            'item_id' => $validated['item_id'],
         ]);
 
-        return redirect()->back()->with('success', 'コメントを投稿しました。');
+        return redirect()->route('items.show', $validated['item_id'])->with('success', 'コメントを投稿しました');
     }
 }

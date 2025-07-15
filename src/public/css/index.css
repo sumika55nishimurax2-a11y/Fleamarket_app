@@ -17,6 +17,19 @@
     margin-right: 2rem;
 }
 
+.sold-label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: rgba(0, 0, 0, 0.499);
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
 .name {
     margin-right: 7rem;
     font-size: 1.5rem;
@@ -77,6 +90,7 @@
 }
 
 .product-image {
+    position: relative;
     width: 280px;
     height: 280px;
     background-color: #ccc;

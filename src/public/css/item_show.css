@@ -14,7 +14,13 @@
     height: 500px;
     background-color: #D9D9D9;
     border-radius: 0px;
+    margin-left: 100px;
     margin-right: 100px;
+}
+
+.show-img {
+    width: 500px;
+    height: 500px;
 }
 
 /* 右側コンテンツグループ */
@@ -33,22 +39,38 @@
 }
 
 .show-icon-group {
-    width: 100px;
-}
-
-.show-icon-numbers {
     display: flex;
-    flex-direction: column;
+    width: 100px;
     justify-content: center;
     align-items: center;
-    margin: 0px;
+}
+
+.like-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .show-icon {
-    display: block;
     width: 40px;
     height: 40px;
     margin: 1px auto;
+}
+
+.nice-icon {
+    color: #5F5F5F;
+    width: 40px;
+    height: 40px;
+}
+
+.nice-icon.liked {
+    color: #facc15;
+}
+
+.show-icon-numbers {
+    margin: 0px;
+    font-size: 0.9em;
 }
 
 .show-purchase {
@@ -58,6 +80,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 1rem;
+    width: 480px;
     height: 100%;
     border-radius: 4px;
     background: #FF0000;
@@ -69,11 +92,29 @@
     font-size: 36px;
     font-weight: bold;
 }
+
+.information-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-bottom: 1em;
+}
 .information-title{
     color: #000;
     font-size: 24px;
     font-weight: bold;
+    margin-right: 1em;
 }
+.category-label {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 0.3em 0.8em;
+    margin-right: 0.5em;
+    border-radius: 1em;
+    font-size: 0.9em;
+}
+
 .comment-form {
     display: flex;
     flex-direction: column;
@@ -89,6 +130,37 @@
     font-weight: bold;
 }
 
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #D9D9D9;
+}
+.username {
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.comment-content {
+    width: 480px;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #F5F5F5;
+    border-radius: 4px;
+}
+
 .comment-form-title {
     color: #000;
     font-size: 24px;
@@ -98,7 +170,7 @@
 }
 
 .comment-textarea {
-    width: 100%;
+    width: 480px;
     height: 246px;
     padding: 0.5rem;
     border: 1px solid #D9D9D9;

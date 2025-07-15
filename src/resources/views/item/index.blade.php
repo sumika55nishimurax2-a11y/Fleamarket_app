@@ -12,8 +12,11 @@
 
 <body>
     <header class="toppage-header">
-        <div class="toppage-header-icon"><x-logo class="w-10 h-10 text-blue-500" /></div>
+        <a href="/">
+            <div class="toppage-header-icon"><x-logo class="w-10 h-10 text-blue-500" /></div>
+        </a>
         <form method="GET" action="{{ route('home') }}" class="toppage-header-search">
+            <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
             <input type="text" name="keyword" class="input-text" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
         </form>
 
@@ -46,18 +49,18 @@
         </div>
 
         <div class="tab-content {{ $tab === 'mylist' ? '' : 'active' }}" id="recommend">
-            @if(request('keyword'))
-            <p>「{{ request('keyword') }}」の検索結果</p>
-            @endif
             @if($products->isEmpty())
-            <p class="no-data">現在、商品は登録されていません。</p>
+            <p class="no-data">おすすめ商品はありません。</p>
             @else
             <div class="product-list">
                 @foreach($products as $product)
                 <div class="product-card">
                     <div class="product-image">
-                        <a href="{{ route('item.show', $product->id) }}">
+                        <a href="{{ route('items.show', $product->id) }}">
                             <img src="{{ asset('storage/images/' . rawurlencode($product->image_path)) }}" alt="{{ $product->name }}" class="product-image">
+                            @if ($product->is_sold === 1)
+                            <p class="sold-label">SOLD</p>
+                            @endif
                         </a>
                     </div>
                     <div class="product-name">{{ $product->name }}</div>
@@ -75,8 +78,11 @@
                 @foreach($mylist as $item)
                 <div class="product-card">
                     <div class="product-image">
-                        <a href="{{ route('item.show', $product->id) }}">
+                        <a href="{{ route('items.show', $item->id) }}">
                             <img src="{{ asset('storage/images/' . rawurlencode($item->image_path)) }}" alt="{{ $item->name }}" class="product-image">
+                            @if ($product->is_sold === 1)
+                            <div class="sold-label">SOLD</div>
+                            @endif
                         </a>
                     </div>
                     <div class="product-name">{{ $item->name }}</div>
@@ -109,14 +115,15 @@
             }
         });
 
-        // ユーザー操作によるタブ切り替え
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
+                const selected = tab.getAttribute('data-tab');
+                document.querySelector('input[name="tab"]').value = selected;
+
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
 
                 contents.forEach(content => content.classList.remove('active'));
-                const selected = tab.getAttribute('data-tab');
                 document.getElementById(selected).classList.add('active');
             });
         });

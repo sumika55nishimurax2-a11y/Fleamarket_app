@@ -22,7 +22,7 @@
             <a class="toppage-header-cart" href="{{ route('item.create') }}">出品</a>
         </div>
     </header>
-    <form class="create-form" action="" method="post" enctype="multipart/form-data">
+    <form class="create-form" action="{{ route('item.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <p class="create-title">商品の出品</p>
 
@@ -35,69 +35,19 @@
                 <label for="image">
                     <img class="preview-image" src="" alt="プレビュー">
                 </label>
-                <input class="image-choice" type="file" id="image" name="image">
+                <input class="image-choice" type="file" id="image" name="image" required>
             </div>
         </div>
         <div class="item-details">
             <p class="item-details-title">商品の詳細</p>
             <p class="item-details-subtitle">カテゴリー</p>
             <div class="category-container">
+                @foreach ($categories as $category)
                 <label class="category-button">
-                    <input type="checkbox" name="category[]" value="ファッション" hidden>
-                    ファッション
+                    <input type="checkbox" name="category[]" value="{{ $category->id }}" hidden>
+                    {{ $category->name }}
                 </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="家電" hidden>
-                    家電
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="インテリア" hidden>
-                    インテリア
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="レディース" hidden>
-                    レディース
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="メンズ" hidden>
-                    メンズ
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="コスメ" hidden>
-                    コスメ
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="本" hidden>
-                    本
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="ゲーム" hidden>
-                    ゲーム
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="スポーツ" hidden>
-                    スポーツ
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="キッチン" hidden>
-                    キッチン
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="ハンドメイド" hidden>
-                    ハンドメイド
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="アクセサリー" hidden>
-                    アクセサリー
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="おもちゃ" hidden>
-                    おもちゃ
-                </label>
-                <label class="category-button">
-                    <input type="checkbox" name="category[]" value="ベビー・キッズ" hidden>
-                    ベビー・キッズ
-                </label>
+                @endforeach
             </div>
         </div>
         <div class="item-condition-container">
@@ -105,10 +55,9 @@
             <label class="item-condition" for="condition">
                 <select class="item-condition" id="condition" name="condition" required>
                     <option value="" disabled selected>選択してください</option>
-                    <option value="">良好</option>
-                    <option value="">目立った傷や汚れなし</option>
-                    <option value="">やや傷や汚れあり</option>
-                    <option value="">状態が悪い</option>
+                    @foreach ($conditions as $condition)
+                    <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                    @endforeach
                 </select>
             </label>
         </div>
@@ -118,20 +67,20 @@
 
             <div>
                 <p class="item-details-subtitle">商品名</p>
-                <label class="item-name" for=" name">
+                <label class="item-name" for="name">
                     <input class="item-name" type="text" id="name" name="name" value="" required>
                 </label>
             </div>
 
             <div>
                 <p class="item-details-subtitle">ブランド名</p>
-                <label class="item-brand" for=" brand">
+                <label class="item-brand" for="brand">
                     <input class="item-brand" type="text" id="brand" name="brand" value=""></label>
             </div>
             <div>
                 <p class="item-details-subtitle">商品の説明</p>
                 <label class="item-description" for="description">
-                    <textarea class="item-description" id=" description" name="description" required></textarea></label>
+                    <textarea class="item-description" id="description" name="description" required></textarea></label>
             </div>
             <div>
                 <p class="item-details-subtitle">販売価格</p>
@@ -140,7 +89,7 @@
             </div>
 
         </div>
-        <button class="create-button" type=" submit">出品する</button>
+        <button class="create-button" type="submit">出品する</button>
     </form>
     <script>
         document.querySelectorAll('.category-button').forEach(label => {
