@@ -80,7 +80,7 @@
                     <div class="product-image">
                         <a href="{{ route('items.show', $item->id) }}">
                             <img src="{{ asset('storage/images/' . rawurlencode($item->image_path)) }}" alt="{{ $item->name }}" class="product-image">
-                            @if ($product->is_sold === 1)
+                            @if ($item->is_sold === 1)
                             <div class="sold-label">SOLD</div>
                             @endif
                         </a>

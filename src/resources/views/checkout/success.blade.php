@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
 </head>
 
 <body>
@@ -15,8 +16,10 @@
         <div class="toppage-header-icon"><x-logo class="w-10 h-10 text-blue-500" /></div>
     </header>
     <main>
-        <h2>購入が完了しました</h2>
-        <a href="/">商品一覧に戻る</a>
+        <div class="checkout-text">
+            <h2>購入が完了しました</h2>
+            <a href="/" class="checkout-link">商品一覧に戻る</a>
+        </div>
     </main>
 
 

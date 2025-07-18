@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -22,12 +24,14 @@ class RegisterController extends Controller
 
         $data['password'] = bcrypt($data['password']);
 
-        $user = \App\Models\User::create($data);
+        $user = User::create([
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+        ]);
+        event(new Registered($user));
+        Auth::login($user);
 
-        auth()->login($user);
-
-        session()->put('first_login', true);
-
-        return redirect()->route('profile.edit')->with('success', '会員登録が完了しました。プロフィールを設定してください。');
+        return redirect()->route('verification.notice');
     }
 }

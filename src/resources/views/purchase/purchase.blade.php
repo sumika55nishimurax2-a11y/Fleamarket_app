@@ -17,19 +17,21 @@
         </a>
         <div class="toppage-header-search"><input type="text" class="input-text" placeholder="なにをお探しですか？"></div>
         <div class="toppage-header-nav">
-            <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-                @csrf
-            </form>
             <a href="#" class="toppage-header-logout"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 ログアウト
             </a>
+
+            <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                @csrf
+            </form>
             <a class="toppage-header-mypage" href="{{ route('mypage.show') }}">マイページ</a>
             <a class="toppage-header-cart" href="{{ route('item.create') }}">出品</a>
         </div>
     </header>
-    <form class="purchase-form" action="{{ route('purchase.store', ['item' => $item->id]) }}" method="POST">
+    <form class="purchase-form" action="{{ route('checkout') }}" method="POST">
         @csrf
+        <input type="hidden" name="item_id" value="{{ $item->id }}">
         <div class="purchase-container">
             <div class="purchase-item">
                 <img class="image" src="{{ asset('storage/images/' . $item->image_path) }}" alt="商品画像">
@@ -39,7 +41,7 @@
             </div>
             <div class="purchase-details">
                 <p class="title">支払い方法</p>
-                <select class="payment-method-label" id="payment_method" name="payment_method" onchange="updatePaymentMethod()">
+                <select class="payment-method-label" id="payment_method" name="payment_method" onchange="updatePaymentMethod()" required>
                     <option value="" disabled selected>選択してください</option>
                     @foreach ($paymentMethods as $method)
                     <option value="{{ $method->name }}">{{ $method->name }}</option>

@@ -17,13 +17,14 @@
         </a>
         <div class="toppage-header-search"><input type="text" class="input-text" placeholder="なにをお探しですか？"></div>
         <div class="toppage-header-nav">
-            <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-                @csrf
-            </form>
             <a href="#" class="toppage-header-logout"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 ログアウト
             </a>
+
+            <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                @csrf
+            </form>
             <a class="toppage-header-mypage" href="{{ route('mypage.show') }}">マイページ</a>
             <a class="toppage-header-cart" href="{{ route('item.create') }}">出品</a>
         </div>

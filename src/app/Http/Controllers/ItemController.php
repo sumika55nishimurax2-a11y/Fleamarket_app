@@ -21,9 +21,11 @@ class ItemController extends Controller
         if (auth()->check()) {
             $userId = auth()->id();
 
-            $mylist = auth()->user()->likes()->with('item')->get()->pluck('item');
+            $mylist = auth()->user()->likes()->with('item')->get()->pluck('item')->filter();
 
-            $productIdsInMylist = $mylist->pluck('id');
+
+            $productIdsInMylist = $mylist->pluck('id')->filter();
+
 
 
             $products = Item::where('user_id', '!=', $userId)

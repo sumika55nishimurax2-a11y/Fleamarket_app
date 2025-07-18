@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ItemController;
@@ -9,6 +11,9 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\CheckoutController;
+
+
 
 
 
@@ -22,15 +27,35 @@ use App\Http\Controllers\PurchaseController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // トップページ
 Route::get('/', [ItemController::class, 'index'])->name('home');
 
 // 認証関連
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+
+// メール確認通知ページ
+Route::get('/email/verify', function () {
+    return view('auth.verify'); // あなたのビュー
+})->middleware('auth')->name('verification.notice');
+
+// メール確認リンクからの処理
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/mypage/profile'); // 認証後の遷移先
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// 確認メール再送処理
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', '確認リンクを再送しました。');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
+
 
 // 認証後にアクセス可能なページ
 Route::middleware(['auth'])->group(function () {
@@ -42,7 +67,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mypage/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::post('/mypage/profile', [UserController::class, 'updateProfile'])->name('profile.update');
 
-    Route::get('/purchase/complete', [PurchaseController::class, 'complete'])->name('purchase.complete');
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
 
     Route::get('/purchase/{item}', [PurchaseController::class, 'index'])->name('purchase.index');
     Route::post('/purchase/{item}/confirm', [PurchaseController::class, 'confirm'])->name('purchase.confirm');

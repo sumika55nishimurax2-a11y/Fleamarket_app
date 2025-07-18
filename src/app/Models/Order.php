@@ -21,6 +21,11 @@ class Order extends Model
         return $this->belongsTo(Item::class); // 購入した商品
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id');

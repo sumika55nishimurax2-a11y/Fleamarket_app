@@ -16,6 +16,8 @@ class MypageController extends Controller
     {
         $user = auth()->user();
 
+        $product = $user->items()->latest()->get();
+
         $soldItems = $user->items()->latest()->get();
 
         $boughtOrders = $user->orders()->with('item')->latest()->get();

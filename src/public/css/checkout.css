@@ -1,0 +1,13 @@
+
+.checkout-text {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.checkout-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #0073CC;
+    text-decoration: none;
+}
