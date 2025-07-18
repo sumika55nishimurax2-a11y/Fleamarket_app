@@ -4,24 +4,24 @@
 
 ### Docker ビルド
 
-1.          docker-compose up -d --build
+1.                docker-compose up -d --build
 
 ### Laravel 環境構築
 
-1.          docker-compose exec php bash
+1.                docker-compose exec php bash
 
-2.          composer install
+2.                composer install
 
 3.  『.env.example』をコピー名前変更し『.env』を作成。70 行目あたりを以下のように編集
 
-    // 前略
-    DB_CONNECTION=mysql
-    DB_HOST=mysql
-    DB_PORT=3306
-    DB_DATABASE=laravel_db
-    DB_USERNAME=laravel_user
-    B_PASSWORD=laravel_pass
-    // 後略
+            / 前略
+            DB_CONNECTION=mysql
+            DB_HOST=mysql
+            DB_PORT=3306
+            DB_DATABASE=laravel_db
+            DB_USERNAME=laravel_user
+            DB_PASSWORD=laravel_pass
+            // 後略
 
 5.アプリキーを作成
 
@@ -41,8 +41,9 @@ composer require stripe/stripe-php
 
 - .env にキー追加
 
-  STRIPE\*KEY=pk\*test\*\*\**
-  STRIPE*SECRET=sk_test\*\_\*\*
+  STRIPE\*KEY=pk\*test\*\*\*\*
+
+  STRIPE\*SECRET=sk_test\*\_\*\*
 
 ## 使用技術（実行環境）
 
@@ -65,6 +66,8 @@ composer require stripe/stripe-php
 - 開発環境：http://localhost/
 
 - phpMyadmin：http://localhost:8080/
+
+- mailhog:http://localhost:8025/
 
 ## そのほか
 
@@ -114,8 +117,8 @@ composer require stripe/stripe-php
 
 ## 決済画面カード支払いテスト用情報
 
-番号: 4242 4242 4242 4242
+    - カード番号: 4242 4242 4242 4242
 
-有効期限: 任意の未来日（例: 12/34）
+    - 有効期限: 任意の未来日（例: 12/34）
 
-CVC: 任意の 3 桁（例: 123）
+    - CVC: 任意の 3 桁（例: 123）
