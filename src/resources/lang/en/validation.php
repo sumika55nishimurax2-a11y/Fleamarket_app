@@ -142,8 +142,21 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'username' => [
+            'required' => 'お名前を入力してください',
+        ],
+        'email' => [
+            'required' => 'メールアドレスを入力してください',
+            'email' => '有効なメールアドレス形式で入力してください',
+        ],
+        'password' => [
+            'required' => 'パスワードを入力してください',
+            'min' => 'パスワードは8文字以上で入力してください',
+            'confirmed' => 'パスワードと一致しません',
+        ],
+        'comment' => [
+            'required' => 'コメントを入力してください',
+            'max' => 'コメントは255文字以内で入力してください',
         ],
     ],
 
@@ -158,6 +171,10 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'username' => 'お名前',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'password_confirmation' => 'パスワード確認',
+    ],
 ];

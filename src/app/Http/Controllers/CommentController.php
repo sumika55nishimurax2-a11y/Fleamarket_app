@@ -7,13 +7,10 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    /**
-     * コメント保存処理
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'comment' => 'required|string|max:1000',
+            'comment' => 'required|string|max:255',
             'item_id' => 'required|exists:items,id',
         ]);
 

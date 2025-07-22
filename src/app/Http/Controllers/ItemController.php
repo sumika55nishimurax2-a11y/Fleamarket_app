@@ -21,7 +21,9 @@ class ItemController extends Controller
         if (auth()->check()) {
             $userId = auth()->id();
 
-            $mylist = auth()->user()->likes()->with('item')->get()->pluck('item')->filter();
+            $mylist = auth()->user()->likes()->with('item')->get()->pluck('item')->filter(function ($item) {
+                return $item->user_id !== auth()->id();
+            });
 
 
             $productIdsInMylist = $mylist->pluck('id')->filter();
@@ -55,7 +57,6 @@ class ItemController extends Controller
         return view('item.index', compact('products', 'mylist', 'keyword'));
     }
 
-
     public function show($id)
     {
         $item = Item::with(['categories', 'condition', 'likes', 'comments.user'])->findOrFail($id);
@@ -77,12 +78,17 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->merge([
+            'price' => preg_replace('/[^\d]/', '', $request->price),
+        ]);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'brand' => 'nullable|string|max:255',
             'description' => 'required|string',
             'price' => 'required|integer|min:0',
-            'condition' => 'required|exists:conditions,id',
+            'condition' => 'required|exists:item_conditions,id',
             'image' => 'required|image|max:2048',
             'category' => 'required|array',
             'category.*' => 'exists:categories,id',
@@ -104,6 +110,6 @@ class ItemController extends Controller
             $item->categories()->attach($validated['category']);
         }
 
-        return redirect()->route('item.show', $item->id)->with('success', '商品を出品しました');
+        return redirect()->route('items.show', ['id' => $item->id]);
     }
 }

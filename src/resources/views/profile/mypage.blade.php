@@ -51,7 +51,7 @@
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="{{ asset('storage/images/' . $item->image_path) }}" alt="{{ $item->name }}" class="product-image">
+                        <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" class="product-image">
                         @if ($item->is_sold === 1)
                         <div class="sold-label">SOLD</div>
                         @endif
@@ -69,7 +69,7 @@
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="{{ asset('storage/images/' . $order->item->image_path) }}" alt="{{ $order->item->name }}" class="product-image">
+                        <img src="{{ asset('storage/' . $order->item->image_path) }}" alt="{{ $order->item->name }}" class="product-image">
                     </div>
                     <div class="product-name">{{ $order->item->name }}</div>
                 </div>

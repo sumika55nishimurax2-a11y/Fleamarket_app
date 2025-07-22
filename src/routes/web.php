@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
 });
-// 商品詳細・コメント（ログイン不要でアクセス可能）
+// ログイン不要でアクセス可能
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('items.show');
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');

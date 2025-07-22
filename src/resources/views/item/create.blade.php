@@ -93,42 +93,54 @@
             <div>
                 <p class="item-details-subtitle">販売価格</p>
                 <label class="item-price" for="price">
-                    <input class="item-price" type="text" id="price" name="price" value="¥" required></label>
+                    <input class="item-price" type="text" id="price" name="price" value="¥" required>
+                </label>
             </div>
 
         </div>
         <button class="create-button" type="submit">出品する</button>
     </form>
-    <script>
-        document.querySelectorAll('.category-button').forEach(label => {
-            const input = label.querySelector('input');
 
-            input.addEventListener('change', () => {
-                if (input.checked) {
-                    label.classList.add('active');
-                } else {
-                    label.classList.remove('active');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const priceInput = document.getElementById('price');
+
+            priceInput.addEventListener('input', function() {
+                const val = priceInput.value.replace(/[^\d]/g, '');
+                priceInput.value = val ? '¥' + val : '¥';
+            });
+
+            document.querySelector('form').addEventListener('submit', function() {
+                priceInput.value = priceInput.value.replace(/[^\d]/g, '');
+            });
+
+            // カテゴリー選択の表示切替
+            document.querySelectorAll('.category-button').forEach(label => {
+                const input = label.querySelector('input');
+                input.addEventListener('change', () => {
+                    label.classList.toggle('active', input.checked);
+                });
+            });
+
+            // 画像プレビュー
+            document.getElementById('image').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const preview = document.querySelector('.preview-image');
+                const label = document.querySelector('.custom-file-label');
+
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        label.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
                 }
             });
         });
-
-        document.getElementById('image').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const preview = document.querySelector('.preview-image');
-            const label = document.querySelector('.custom-file-label');
-
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    label.style.display = 'none'; // 赤枠含む「画像を選択する」非表示
-                };
-                reader.readAsDataURL(file);
-            }
-        });
     </script>
-
 </body>
 
 </html>

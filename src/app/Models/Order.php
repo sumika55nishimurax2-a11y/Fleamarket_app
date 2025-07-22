@@ -9,6 +9,8 @@ use App\Models\User;
 
 class Order extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [
         'buyer_id',
         'item_id',
@@ -18,7 +20,7 @@ class Order extends Model
 
     public function item()
     {
-        return $this->belongsTo(Item::class); // 購入した商品
+        return $this->belongsTo(Item::class, 'item_id'); // 購入した商品
     }
 
     public function user()

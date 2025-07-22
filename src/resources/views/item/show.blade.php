@@ -39,7 +39,7 @@
     </header>
     <main class="item-show">
         <div class="item-show-left">
-            <img class="show-img" src="{{ asset('storage/images/' . $item->image_path) }}" alt="商品画像">
+            <img class="show-img" src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像">
         </div>
         <div class="item-show-right">
             <div class="item-details">

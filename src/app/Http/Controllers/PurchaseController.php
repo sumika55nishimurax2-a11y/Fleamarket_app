@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,15 +15,17 @@ class PurchaseController extends Controller
 {
     public function index(Item $item)
     {
+        $user = Auth::user()->refresh();
+
         // ログインユーザーが自分の商品を買おうとしていたら拒否
         if ($item->user_id === auth()->id()) {
             return redirect()->route('items.show', $item->id)->with('error', '自分の商品は購入できません');
         }
 
-        $user = Auth::user();
         $paymentMethods = PaymentMethod::all();
+        $selectedPaymentMethod = old('payment_method'); // 直前に選んだやつがあれば
 
-        return view('purchase.purchase', compact('item', 'user', 'paymentMethods'));
+        return view('purchase.purchase', compact('item', 'user', 'paymentMethods', 'selectedPaymentMethod'));
     }
 
     public function show(Item $item)
@@ -46,7 +49,11 @@ class PurchaseController extends Controller
         ]);
 
         $user = Auth::user();
-        $user->update($request->only(['postal_code', 'address', 'building']));
+
+        $user->postal_code = $request->postal_code;
+        $user->address = $request->address;
+        $user->building = $request->building;
+        $user->save();
 
         return redirect()->route('purchase.index', ['item' => $item->id])
             ->with('success', '住所が更新されました');
@@ -71,11 +78,11 @@ class PurchaseController extends Controller
         $item->update(['is_sold' => true]);
 
 
-        return redirect()->route('purchase.complete');
+        return redirect()->route('checkout.success');
     }
 
     public function complete()
     {
-        return view('purchase.complete');
+        return view('checkout.success');
     }
 }

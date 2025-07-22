@@ -2,44 +2,68 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_login_screen_can_be_rendered(): void
+    /** @test メールアドレス未入力のときバリデーションエラーになる */
+    public function test_email_is_required()
     {
-        $response = $this->get('/login');
+        $response = $this->post('/login', [
+            'email' => '',
+            'password' => 'password123',
+        ]);
 
-        $response->assertStatus(200);
+        $response->assertSessionHasErrors([
+            'email' => 'メールアドレスを入力してください。',
+        ]);
     }
 
-    public function test_users_can_authenticate_using_the_login_screen(): void
+    /** @test パスワード未入力のときバリデーションエラーになる */
+    public function test_password_is_required()
     {
-        $user = User::factory()->create();
+        $response = $this->post('/login', [
+            'email' => 'test@example.com',
+            'password' => '',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードを入力してください。',
+        ]);
+    }
+
+    /** @test 誤ったログイン情報を入力するとエラーになる */
+    public function test_invalid_login_shows_error()
+    {
+        $response = $this->post('/login', [
+            'email' => 'wrong@example.com',
+            'password' => 'invalidpass',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'email' => 'ログイン情報が登録されていません。',
+        ]);
+    }
+
+    /** @test 正しいログイン情報でログインできる */
+    public function test_valid_login_redirects_successfully()
+    {
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+        ]);
 
         $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
+            'email' => 'test@example.com',
+            'password' => 'password123',
         ]);
 
-        $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
-    }
-
-    public function test_users_can_not_authenticate_with_invalid_password(): void
-    {
-        $user = User::factory()->create();
-
-        $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'wrong-password',
-        ]);
-
-        $this->assertGuest();
+        $response->assertRedirect('/?tab=mylist');
+        $this->assertAuthenticatedAs($user);
     }
 }

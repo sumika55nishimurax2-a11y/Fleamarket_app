@@ -57,7 +57,7 @@
                 <div class="product-card">
                     <div class="product-image">
                         <a href="{{ route('items.show', $product->id) }}">
-                            <img src="{{ asset('storage/images/' . rawurlencode($product->image_path)) }}" alt="{{ $product->name }}" class="product-image">
+                            <img src="{{ asset('storage/' . rawurlencode($product->image_path)) }}" alt="{{ $product->name }}" class="product-image">
                             @if ($product->is_sold === 1)
                             <p class="sold-label">SOLD</p>
                             @endif
@@ -79,7 +79,7 @@
                 <div class="product-card">
                     <div class="product-image">
                         <a href="{{ route('items.show', $item->id) }}">
-                            <img src="{{ asset('storage/images/' . rawurlencode($item->image_path)) }}" alt="{{ $item->name }}" class="product-image">
+                            <img src="{{ asset('storage/' . rawurlencode($item->image_path)) }}" alt="{{ $item->name }}" class="product-image">
                             @if ($item->is_sold === 1)
                             <div class="sold-label">SOLD</div>
                             @endif

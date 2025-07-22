@@ -34,7 +34,7 @@
         <input type="hidden" name="item_id" value="{{ $item->id }}">
         <div class="purchase-container">
             <div class="purchase-item">
-                <img class="image" src="{{ asset('storage/images/' . $item->image_path) }}" alt="商品画像">
+                <img class="image" src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像">
                 <div class="item-details">
                     <p>{{ $item->name }}<br />¥{{ number_format($item->price) }}</p>
                 </div>
@@ -68,8 +68,9 @@
                 </div>
             </div>
             <div class="payment-method-reflection">
-                <p class="purchase-confirmation-text">支払い方法</p>
-                <p class="purchase-confirmation-text" id="selected-payment-method">選択してください</p>
+                <p class="purchase-confirmation-text" id="selected-payment-method">
+                    {{ old('payment_method', $selectedPaymentMethod ?? '選択してください') }}
+                </p>
             </div>
             <button class=" purchase-button" type="submit">購入する</button>
         </div>

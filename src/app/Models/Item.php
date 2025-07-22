@@ -13,7 +13,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'brand', 'description', 'price', 'condition_id', 'image_path', 'is_sold'];
+    protected $fillable = ['user_id', 'name', 'brand', 'description', 'price', 'condition_id', 'image_path', 'is_sold'];
     public function categories()
     {
         return $this->belongsToMany(Category::class);
@@ -21,7 +21,7 @@ class Item extends Model
 
     public function condition()
     {
-        return $this->belongsTo(ItemCondition::class);
+        return $this->belongsTo(ItemCondition::class, 'condition_id');
     }
 
     public function likes()
