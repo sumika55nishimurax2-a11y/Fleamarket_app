@@ -4,15 +4,25 @@
 
 ### Docker ビルド
 
-1.                docker-compose up -d --build
+1.イメージをビルドする。
+
+    docker-compose up -d --build
 
 ### Laravel 環境構築
 
-1.                docker-compose exec php bash
+1.docker コンテナに接続する。
 
-2.                composer install
+    docker-compose exec php bash
 
-3.  『.env.example』をコピー名前変更し『.env』を作成。11 行目あたりを以下のように編集
+2.必要なパッケージをインストールする。
+
+    composer install
+
+3.プロジェクトのルート（/var/www/）で以下のコマンドを使い、『.env.example』をコピー名前変更し『.env』を作成。
+
+      cp .env.example .env
+
+『.env』ファイルの　 11 行目あたりを以下のように編集。
 
             / 前略
             DB_CONNECTION=mysql
@@ -34,6 +44,8 @@
 7.シーディング実行
 
     php artisan db:seed
+
+## 使用技術（実行環境）
 
 ## Stripe の設定方法
 
