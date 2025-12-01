@@ -35,15 +35,27 @@
 
     php artisan db:seed
 
-## stripe 　 SDK のインストール
+## Stripe の設定方法
 
-composer require stripe/stripe-php
+　　このアプリでは決済機能に Stripe を使用しています。
 
-- .env にキー追加
+　　ローカルで動かす場合は、以下の設定が必要です。
 
-  STRIPE\*KEY=pk\*test\*\*\*\*
+1. Stripe SDK のインストール
 
-  STRIPE\*SECRET=sk_test\*\_\*\*
+    composer require stripe/stripe-php
+
+2. .env に Stripe のキーを追加
+
+    Stripe ダッシュボードから自分のテストキーをコピーして、.env に貼ってください。
+
+        STRIPE_KEY=pk_test_xxxxxxxxx
+        STRIPE_SECRET=sk_test_xxxxxxxxx
+
+3. キャッシュのクリア（必要な場合のみ）
+
+    php artisan config:clear
+
 
 ## 使用技術（実行環境）
 
