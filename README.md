@@ -102,7 +102,7 @@ composer require stripe/stripe-php
     - CVC: 任意の 3 桁（例: 123）
 
 
-    ***
+***
 
 # 単体テストについて
 
