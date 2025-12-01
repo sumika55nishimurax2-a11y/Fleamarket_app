@@ -91,29 +91,7 @@ composer require stripe/stripe-php
 
   2 1234abcd
 
-- avatar
 
-  1
-
-  2
-
-- postal_code
-
-  1
-
-  2
-
-- address
-
-  1
-
-  2
-
-- building
-
-  1
-
-  2
 
 ## 決済画面カード支払いテスト用情報
 
@@ -122,3 +100,31 @@ composer require stripe/stripe-php
     - 有効期限: 任意の未来日（例: 12/34）
 
     - CVC: 任意の 3 桁（例: 123）
+
+
+    ***
+
+# 単体テストについて
+
+ 1. .env.testing の準備
+
+     このリポジトリにはテスト用の設定ファイル .env.testing が含まれています。
+
+     クローン後、必要であれば 自分の環境に合わせてデータベース名・ユーザー名・パスワードだけ変更 してください。
+
+2. テスト用データベースを作る
+
+     テスト専用のデータベースを自分のパソコンに作ります。
+
+        php artisan migrate --env=testing
+
+
+3. テストを実行する
+
+     テスト実行コマンド
+
+        php artisan test
+
+
+   
+
