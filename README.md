@@ -12,7 +12,7 @@
 
 2.                composer install
 
-3.  『.env.example』をコピー名前変更し『.env』を作成。70 行目あたりを以下のように編集
+3.  『.env.example』をコピー名前変更し『.env』を作成。11 行目あたりを以下のように編集
 
             / 前略
             DB_CONNECTION=mysql
