@@ -45,7 +45,6 @@
 
     php artisan db:seed
 
-## 使用技術（実行環境）
 
 ## Stripe の設定方法
 
